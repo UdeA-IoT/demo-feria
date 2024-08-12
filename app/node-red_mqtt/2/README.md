@@ -1,3 +1,82 @@
+
+## Test 3 - Aplicación que envia comandos para prender y apagar el bombillo en una casa.
+
+
+
+A continuación se describe el topic tree de la aplicación:
+
+```
+├── device
+│   ├── id-dev1
+│   │   ├── lights
+│   │   │   ├── control
+│   │   │   └── state
+```
+
+La siguiente tabla muestra los escenarios de la aplicación:
+
+| **Escenario**                  | **Topico**                            | **JSON Message**                      |
+|--------------------------------|---------------------------------------|---------------------------------------|
+| Encender la lampara 1          | `house/device/id-dev1/lights/control` | `{ "command": "ON" }`                 |
+| Apagar la lampara 1            | `house/device/id-dev1/lights/control` | `{ "command": "OFF" }`                |
+| Estado de la lampara 1 (ON)    | `house/device/id-dev1/lights/state`   | `{ "state": "ON" }`                   |
+| Estado de la lampara 1 (OFF)   | `house/device/id-dev1/lights/state`   | `{ "state": "OFF" }`                  |
+
+
+### App
+
+Informacion de la App
+
+### Thing
+
+Diagrama
+
+![lamp_sch](house_lamp_sch.png)
+
+Conexion
+
+![lamp_bb](house_lamp_bb.png)
+
+platformio.ini
+
+```
+[env:upesy_wroom]
+platform = espressif32
+board = upesy_wroom
+framework = arduino
+lib_deps = 
+	knolleary/PubSubClient@^2.8
+	bblanchon/ArduinoJson@^7.1.0
+```
+
+config.h
+
+```h
+#pragma once
+#include <string>
+
+using namespace std;
+
+// ESP32 I/O config
+#define LIGHT_PIN 2
+
+// WiFi credentials
+const char *SSID = "IoT";
+const char *PASSWORD = "1245678h";
+
+// MQTT settings
+const string ID = "id-dev1";
+
+const string BROKER = "192.168.43.55";
+
+const string TOPIC = "house/device/" + ID;
+const string STATUS_TOPIC = TOPIC + "/lights/state";  // P
+const string CONTROL_TOPIC = TOPIC + "/lights/control"; // S
+```
+
+main.cpp
+
+```c
 #include <Arduino.h>
 #include <WiFi.h>
 #include <PubSubClient.h>
@@ -112,3 +191,5 @@ void loop() {
   client.loop();
   delay(1000);
 }
+```
+
