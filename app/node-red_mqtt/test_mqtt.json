@@ -1,0 +1,140 @@
+[
+    {
+        "id": "0370bada1b561bcb",
+        "type": "tab",
+        "label": "test_mqtt",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "3d3653ec4be75f90",
+        "type": "inject",
+        "z": "0370bada1b561bcb",
+        "name": "message",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Hola mundo",
+        "payloadType": "str",
+        "x": 760,
+        "y": 220,
+        "wires": [
+            [
+                "ec2cd0a1a5f5092f",
+                "120891ae96581528"
+            ]
+        ]
+    },
+    {
+        "id": "ec2cd0a1a5f5092f",
+        "type": "debug",
+        "z": "0370bada1b561bcb",
+        "name": "mess send",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1110,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "120891ae96581528",
+        "type": "mqtt out",
+        "z": "0370bada1b561bcb",
+        "name": "",
+        "topic": "/thing-echo",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "cbbd97c9e749d651",
+        "x": 1110,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "e23c140ae411e6ec",
+        "type": "debug",
+        "z": "0370bada1b561bcb",
+        "name": "mess receibed",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1120,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "b754a4e1c7ca9c5f",
+        "type": "mqtt in",
+        "z": "0370bada1b561bcb",
+        "name": "",
+        "topic": "/thing-echo",
+        "qos": "2",
+        "datatype": "utf8",
+        "broker": "cbbd97c9e749d651",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 760,
+        "y": 340,
+        "wires": [
+            [
+                "e23c140ae411e6ec"
+            ]
+        ]
+    },
+    {
+        "id": "cbbd97c9e749d651",
+        "type": "mqtt-broker",
+        "name": "Broker",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "3",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]
